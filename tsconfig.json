@@ -1,0 +1,21 @@
+{
+    "atom": {
+        "rewriteTsconfig": true
+    },
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "outFile": "prototype.js",
+        "removeComments": true,
+        "target": "es5",
+        "jsx": "react"
+    },
+    "filesGlob": [
+        "src/scripts/*.tsx",
+        "src/scripts/*/*.tsx",
+        "src/scripts/*.ts",
+        "src/scripts/*/*.ts"
+    ],
+    "files": [
+        "src/scripts/main.tsx"
+    ]
+}

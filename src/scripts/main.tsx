@@ -7,47 +7,43 @@ declare function fetch(url : String, option : any) : any;
 class InputText {
   id : number = Date.now();
   constructor(public text : string) {};
-};
+}
 
 class InputTextList {
   list : InputText[] = [];
   add(text : string) {
-    this
-      .list
-      .push(new InputText(text));
-  };
-};
+    this.list.push(new InputText(text));
+  }
+}
 
 interface ForInputActionProps extends React.Props < {} > {
   onSubmit: (inputChara : string) => void;
-};
+}
 interface ForInputActionState {
   inputChara : string;
   muraiClassName : string;
   muraiSrc : string;
-};
+}
 class ForInputAction extends React.Component < ForInputActionProps, ForInputActionState > {
-  constructor(props : ForInputActionProps) {
-    super(props);
-    this.state = {
-      inputChara: "",
-      muraiClassName: "murai_animation_1",
-      muraiSrc: "images/murai/1.png"
-    };
-  };
+constructor(props : ForInputActionProps) {
+  super(props);
+  this.state = {
+    inputChara: "",
+    muraiClassName: "murai_animation_1",
+    muraiSrc: "images/murai/1.png"
+  } as ForInputActionState;
+}
   private handleInputTextChange(e : React.FormEvent < {} >) {
     let inputValue = (e.target as HTMLInputElement).value;
     this.setState({inputChara: inputValue} as ForInputActionState);
-  };
+  }
   private handleSubmit(e : React.SyntheticEvent < {} >) {
     if (this.state.inputChara == "") {
       e.preventDefault();
     } else {
 
       e.preventDefault();
-      this
-        .props
-        .onSubmit(this.state.inputChara);
+      this.props.onSubmit(this.state.inputChara);
       this.setState({inputChara: "", muraiClassName: "bounceOut"} as ForInputActionState);
 
       setTimeout(function () {
@@ -58,17 +54,14 @@ class ForInputAction extends React.Component < ForInputActionProps, ForInputActi
         this.setState({muraiClassName: murai_classname, muraiSrc: murai_src} as ForInputActionState);
       }.bind(this), 1000);
 
-    };
-  };
+    }
+  }
   private handleMouseDown(e : React.SyntheticEvent < {} >) {};
   private handleMouseUp(e : React.SyntheticEvent < {} >) {};
   render() {
     return (
       <div>
-        <img
-          id="murai"
-          className={this.state.muraiClassName}
-          src={this.state.muraiSrc}/>
+        <img id="murai" className={this.state.muraiClassName} src={this.state.muraiSrc}/>
         <form id="formBox" onSubmit={this.handleSubmit.bind(this)}>
           <div>
             <input id="inputBox" type="text" value={this.state.inputChara} onChange={this.handleInputTextChange.bind(this)}/>
@@ -82,16 +75,14 @@ class ForInputAction extends React.Component < ForInputActionProps, ForInputActi
 
 interface InputTextDispProps extends React.Props < {} > {
   displist: InputText[];
-};
+}
 class InputTextDisp extends React.Component < InputTextDispProps, {} > {
   constructor() {
     super();
-  };
+  }
   render() {
-    let listItems = this
-      .props
-      .displist
-      .map(x => <li key={x.id} className="input_disp">
+    let listItems = this.props.displist.map(x =>
+      <li key={x.id} className="input_disp">
         <span>Q.{x.text}</span>
       </li>);
     return (
@@ -101,8 +92,8 @@ class InputTextDisp extends React.Component < InputTextDispProps, {} > {
         </ul>
       </div>
     );
-  };
-};
+  }
+}
 
 interface AnswerTextDispProps extends React.Props < {} > {
   answerlist: InputText[];
@@ -110,12 +101,10 @@ interface AnswerTextDispProps extends React.Props < {} > {
 class AnswerTextDisp extends React.Component < AnswerTextDispProps, {} > {
   constructor() {
     super();
-  };
+  }
   render() {
-    let listItems = this
-      .props
-      .answerlist
-      .map(x => <li key={x.id} className="answer_disp">
+    let listItems = this.props.answerlist.map(x =>
+      <li key={x.id} className="answer_disp">
         <span>A.{x.text}</span>
       </li>)
     return (
@@ -125,32 +114,26 @@ class AnswerTextDisp extends React.Component < AnswerTextDispProps, {} > {
         </ul>
       </div>
     )
-  };
-};
+  }
+}
 
 interface MainState {
   displistpost : InputTextList;
   answerlistpost : InputTextList;
-};
+}
 class Main extends React.Component < {}, MainState > {
   constructor(props : {}) {
     super(props);
     this.state = {
       displistpost: new InputTextList(),
       answerlistpost: new InputTextList()
-    };
-  };
+    } as MainState;
+  }
   private handleInputTextSubmit(texts : string) {
-    this
-      .state
-      .displistpost
-      .add(texts);
-    this
-      .state
-      .answerlistpost
-      .add(texts);
+    this.state.displistpost.add(texts);
+    this.state.answerlistpost.add(texts);
     this.setState({displistpost: this.state.displistpost, answerlistpost: this.state.answerlistpost} as MainState);
-  };
+  }
   render() {
     return (
       <div>
@@ -159,8 +142,8 @@ class Main extends React.Component < {}, MainState > {
         <AnswerTextDisp answerlist={this.state.answerlistpost.list}/>
       </div>
     );
-  };
-};
+  }
+}
 
 ReactDOM.render(
   <Main/>, document.getElementById('root'));

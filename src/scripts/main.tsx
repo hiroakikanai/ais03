@@ -26,7 +26,7 @@ interface ForInputActionState {
   muraiClassName : string;
   muraiSrc : string;
 };
-class ForInputAction extends React.Component < ForInputActionProps, ForInputActionState > {
+class ForInputAction extends React.Component < ForInputActionProps,ForInputActionState > {
   constructor(props : ForInputActionProps) {
     super(props);
     this.state = {

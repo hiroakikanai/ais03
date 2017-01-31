@@ -17,7 +17,9 @@ var InputTextList = (function () {
         this.list = [];
     }
     InputTextList.prototype.add = function (text) {
-        this.list.push(new InputText(text));
+        this
+            .list
+            .push(new InputText(text));
     };
     ;
     return InputTextList;
@@ -29,7 +31,11 @@ var ForInputAction = (function (_super) {
     __extends(ForInputAction, _super);
     function ForInputAction(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { inputChara: "", muraiClassName: "murai_animation_1", muraiSrc: "images/murai/1.png" };
+        _this.state = {
+            inputChara: "",
+            muraiClassName: "murai_animation_1",
+            muraiSrc: "images/murai/1.png"
+        };
         return _this;
     }
     ;
@@ -44,7 +50,9 @@ var ForInputAction = (function (_super) {
         }
         else {
             e.preventDefault();
-            this.props.onSubmit(this.state.inputChara);
+            this
+                .props
+                .onSubmit(this.state.inputChara);
             this.setState({ inputChara: "", muraiClassName: "bounceOut" });
             setTimeout(function () {
                 var muraicnt1 = Math.floor(Math.random() * 2);
@@ -79,12 +87,13 @@ var InputTextDisp = (function (_super) {
     }
     ;
     InputTextDisp.prototype.render = function () {
-        var listItems = this.props.displist.map(function (x) {
-            return React.createElement("li", { key: x.id, className: "input_disp" },
-                React.createElement("span", null,
-                    "Q.",
-                    x.text));
-        });
+        var listItems = this
+            .props
+            .displist
+            .map(function (x) { return React.createElement("li", { key: x.id, className: "input_disp" },
+            React.createElement("span", null,
+                "Q.",
+                x.text)); });
         return (React.createElement("div", null,
             React.createElement("ul", null, listItems)));
     };
@@ -100,12 +109,13 @@ var AnswerTextDisp = (function (_super) {
     }
     ;
     AnswerTextDisp.prototype.render = function () {
-        var listItems = this.props.answerlist.map(function (x) {
-            return React.createElement("li", { key: x.id, className: "answer_disp" },
-                React.createElement("span", null,
-                    "A.",
-                    x.text));
-        });
+        var listItems = this
+            .props
+            .answerlist
+            .map(function (x) { return React.createElement("li", { key: x.id, className: "answer_disp" },
+            React.createElement("span", null,
+                "A.",
+                x.text)); });
         return (React.createElement("div", null,
             React.createElement("ul", null, listItems)));
     };
@@ -118,13 +128,22 @@ var Main = (function (_super) {
     __extends(Main, _super);
     function Main(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { displistpost: new InputTextList(), answerlistpost: new InputTextList() };
+        _this.state = {
+            displistpost: new InputTextList(),
+            answerlistpost: new InputTextList()
+        };
         return _this;
     }
     ;
     Main.prototype.handleInputTextSubmit = function (texts) {
-        this.state.displistpost.add(texts);
-        this.state.answerlistpost.add(texts);
+        this
+            .state
+            .displistpost
+            .add(texts);
+        this
+            .state
+            .answerlistpost
+            .add(texts);
         this.setState({ displistpost: this.state.displistpost, answerlistpost: this.state.answerlistpost });
     };
     ;

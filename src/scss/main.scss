@@ -18,7 +18,10 @@ body {
     padding: 0;
     color: rgba(255, 255, 255, 1);
 }
-
+ul li{
+  list-style: none;
+  box-shadow: none;
+}
 #root {
     position: relative;
     overflow: hidden;
@@ -52,7 +55,7 @@ body {
     margin-left: 1%;
 }
 
-.input_disp {
+.input_disp{
     display: none;
     list-style-type: none;
     margin: 0;
@@ -71,7 +74,7 @@ body {
     display: block;
 }
 
-.answer_disp {
+.answer_disp{
     display: none;
   list-style-type: none;
     margin: 0;

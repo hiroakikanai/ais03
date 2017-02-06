@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+</head>
+<script>
+    $(function () {
+        var id_token = localStorage.getItem('id_token');
+        if (null != id_token) {
+            console.log('id_tokenあります');
+            //id_token読み込みGETトップページ
+            $.get({
+                    url: "トップページURL",
+                    dataType: "json",
+                    beforeSend: function (request) {
+                        request.setRequestHeader("Authorization", id_token);
+                    }
+                })
+                .done(function () {
+                    console.log('アクセス成功');
+                })
+                .fail(function () {
+                    console.log('保管id_tokenエラー');
+                    window.localStorage.clear();
+                    //トップページ遷移location.href = "https...";
+                })
+        } else {
+            console.log('保管id_tokenありません');
+            //GET/nonce
+            $.get({
+                    url: "nonceGETページ",
+                    dataType: "json"
+                })
+                .then(function (data) {
+                    $.post({
+                        url: "", //Authorizationコード取得ページ
+                        dataType: "json",
+                        beforeSend: function (jqXHR, settings) {
+                            //(oauth2/authorize(client_id,redirect_uri,response_type="id_token",nonce,scope=user.memberships.channels:all))
+                            var getAuthUrl = "" + JSON.stringify(data); //Authorizationコード取得ページURL作成（仮）
+                            settings.url = settings.url.replace(getAuthUrl); //Authorizationコード取得ページURLセット
+                            console.log('nonceありません');
+                        }
+                    })
+                })
+                //ログイン（自動）
+                //認可（自動）
+                .then(function (data) {
+                    console.log('nonceあります');
+                    //redirect_uri?code=[Authorization_code]受取
+                    $.get({
+                        url: "", //Token取得ページ
+                        dataType: "json",
+                        beforeSend: function (jqXHR, settings) {
+                            //GETid_token(authorization_code,redirect_uri)要求
+                            var getIdtokenUrl = "" + JSON.stringify(data); //Token取得ページURL作成（仮）
+                            settings.url = settings.url.replace(getIdtokenUrl); //Token取得ページURLセット
+                        }
+                    })
+                })
+                .then(function (data) {
+                    console.log('Authorizeあります');
+                    //id_token保存
+                    localStorage.setItem('id_token', JSON.stringify(data));
+                    $.get({
+                        url: "トップページURL",
+                        dataType: "json",
+                        beforeSend: function (request) {
+                            id_token = JSON.stringify(data); //（仮）
+                            request.setRequestHeader("Authorization", id_token);
+                        }
+                    })
+                })
+                .done(function () {
+                    console.log('アクセス成功');
+                })
+                .fail(function () {
+                        console.log('エラー');
+                    } //エラーページ遷移
+                );
+        };
+    });
+</script>
+
+</html>

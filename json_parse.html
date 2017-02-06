@@ -34,7 +34,7 @@
     </table>
     <script>
     $.ajax({
-      url: 'http://api.e-stat.go.jp/rest/2.0/app/getStatsData?appId=<67eca25f4747a570bd753830fdf4182f41b52bd9>&statsDataId=C0020050213000&cdCat01=%23A03503',
+      url: 'http://api.e-stat.go.jp/rest/2.1/app/json/getStatsList?appId=+67eca25f4747a570bd753830fdf4182f41b52bd9&lang=J&searchKind=1',
       type: 'GET',
       dataType: 'json',
       success: function(data){

@@ -41,7 +41,7 @@
                             //(oauth2/authorize(client_id,redirect_uri,response_type="id_token",nonce,scope=user.memberships.channels:all))
                             var getAuthUrl = "" + JSON.stringify(data); //Authorizationコード取得ページURL作成（仮）
                             settings.url = settings.url.replace(getAuthUrl); //Authorizationコード取得ページURLセット
-                            console.log('nonceまだありません');
+                            console.log('Authorizeまだありません');
                         }
                     })
                 })

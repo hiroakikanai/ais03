@@ -9,7 +9,7 @@
     $(function () {
         var id_token = localStorage.getItem('id_token');
         if (null != id_token) {
-            console.log('id_tokenあります');
+            console.log('localStorage_id_tokenあります');
             //id_token読み込みGETトップページ
             $.get({
                     url: "トップページURL",
@@ -22,12 +22,12 @@
                     console.log('アクセス成功');
                 })
                 .fail(function () {
-                    console.log('保管id_tokenエラー');
+                    console.log('localStorage_id_tokenエラー');
                     window.localStorage.clear();
-                    //トップページ遷移location.href = "https...";
+                    //エラーページ遷移 location.href = "https...";
                 })
         } else {
-            console.log('保管id_tokenありません');
+            console.log('localStorage_id_tokenありません');
             //GET/nonce
             $.get({
                     url: "nonceGETページ",
@@ -41,14 +41,14 @@
                             //(oauth2/authorize(client_id,redirect_uri,response_type="id_token",nonce,scope=user.memberships.channels:all))
                             var getAuthUrl = "" + JSON.stringify(data); //Authorizationコード取得ページURL作成（仮）
                             settings.url = settings.url.replace(getAuthUrl); //Authorizationコード取得ページURLセット
-                            console.log('nonceありません');
+                            console.log('nonceまだありません');
                         }
                     })
                 })
                 //ログイン（自動）
                 //認可（自動）
                 .then(function (data) {
-                    console.log('nonceあります');
+                    console.log('Authorize取得しました');
                     //redirect_uri?code=[Authorization_code]受取
                     $.get({
                         url: "", //Token取得ページ
@@ -57,13 +57,15 @@
                             //GETid_token(authorization_code,redirect_uri)要求
                             var getIdtokenUrl = "" + JSON.stringify(data); //Token取得ページURL作成（仮）
                             settings.url = settings.url.replace(getIdtokenUrl); //Token取得ページURLセット
+                            console.log('新id_tokenまだありません');
                         }
                     })
                 })
                 .then(function (data) {
-                    console.log('Authorizeあります');
+                    console.log('新id_token取得しました');
                     //id_token保存
                     localStorage.setItem('id_token', JSON.stringify(data));
+                    console.log('新id_token保存しました');
                     $.get({
                         url: "トップページURL",
                         dataType: "json",
@@ -78,7 +80,9 @@
                 })
                 .fail(function () {
                         console.log('エラー');
-                    } //エラーページ遷移
+                        window.localStorage.clear();
+                        //エラーページ遷移 location.href = "https...";
+                    }
                 );
         };
     });

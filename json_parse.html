@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <style>
+        input {
+            font-size: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>Data01</th>
+            <td>
+                <input id="data01" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <th>Data02</th>
+            <td>
+                <input id="data02" type="text" />
+            </td>
+        </tr>
+        <tr>
+            <th>Data03</th>
+            <td>
+                <input id="data03" type="text" />
+            </td>
+        </tr>
+    </table>
+    <script>
+    $.ajax({
+      url: 'http://api.e-stat.go.jp/rest/2.0/app/getStatsData?appId=67eca25f4747a570bd753830fdf4182f41b52bd9&statsDataId=C0020050213000&cdCat01=%23A03503',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){
+        var d = JSON.stringify(data);
+        console.log(d);
+      },
+      error: function(){
+        console.log('ERROR');
+      }
+    })
+    </script>
+</body>
+</html>

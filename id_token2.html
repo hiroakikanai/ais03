@@ -30,12 +30,12 @@
             console.log('localStorage_id_tokenありません');
             //GET/nonce
             $.get({
-                    url: "http://www.mocky.io/v2/5899595c0f000084001f4a6b",
+                    url: "http://www.mocky.io/v2/58995be00f000092001f4a6c",
                     dataType: "json"
                 })
                 .then(function (data) {
                     $.post({
-                        url: "", //Authorizationコード取得ページ
+                        url: "http://www.mocky.io/v2/58995be00f000092001f4a6c", //Authorizationコード取得ページ
                         dataType: "json",
                         beforeSend: function (jqXHR, settings) {
                             //(oauth2/authorize(client_id,redirect_uri,response_type="id_token",nonce,scope=user.memberships.channels:all))

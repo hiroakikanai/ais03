@@ -34,7 +34,7 @@
                     dataType: "json"
                 })
                 .then(function (data) {
-                    $.post({
+                    $.get({
                         url: "http://www.mocky.io/v2/58995be00f000092001f4a6c", //Authorizationコード取得ページ
                         dataType: "json",
                         beforeSend: function (jqXHR, settings) {

@@ -14,7 +14,7 @@
             $.get({
                     url: "トップページURL",
                     dataType: "json",
-                    beforeSend: function (request) {
+                    beforeSend: function (request, id_token) {
                         request.setRequestHeader("Authorization", id_token);
                     }
                 })
@@ -24,16 +24,18 @@
                 .fail(function () {
                     console.log('localStorage_id_tokenエラー');
                     window.localStorage.clear();
-                    //エラーページ遷移 location.href = "https...";
+                    location.href = "https...";//エラーページ遷移 
                 })
         } else {
             console.log('localStorage_id_tokenありません');
+            console.log('nonceまだありません');
             //GET/nonce
             $.get({
                     url: "",
                     dataType: "json"
                 })
                 .then(function (data) {
+                    console.log('nonce取得しました');
                     $.get({
                         url: "", //Authorizationコード取得ページ
                         dataType: "json",
@@ -69,7 +71,7 @@
                     $.get({
                         url: "トップページURL",
                         dataType: "json",
-                    beforeSend: function (request, data) {
+                        beforeSend: function (request, id_token, data) {
                             id_token = JSON.stringify(data); //（仮）
                             request.setRequestHeader("Authorization", id_token);
                         }
@@ -81,7 +83,7 @@
                 .fail(function () {
                         console.log('エラー');
                         window.localStorage.clear();
-                        //エラーページ遷移 location.href = "https...";
+                        location.href = "https...";//エラーページ遷移 
                     }
                 );
         };

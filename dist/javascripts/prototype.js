@@ -11,22 +11,15 @@ var InputText = (function () {
     ;
     return InputText;
 }());
-;
 var InputTextList = (function () {
     function InputTextList() {
         this.list = [];
     }
     InputTextList.prototype.add = function (text) {
-        this
-            .list
-            .push(new InputText(text));
+        this.list.push(new InputText(text));
     };
-    ;
     return InputTextList;
 }());
-;
-;
-;
 var ForInputAction = (function (_super) {
     __extends(ForInputAction, _super);
     function ForInputAction(props) {
@@ -38,21 +31,17 @@ var ForInputAction = (function (_super) {
         };
         return _this;
     }
-    ;
     ForInputAction.prototype.handleInputTextChange = function (e) {
         var inputValue = e.target.value;
         this.setState({ inputChara: inputValue });
     };
-    ;
     ForInputAction.prototype.handleSubmit = function (e) {
         if (this.state.inputChara == "") {
             e.preventDefault();
         }
         else {
             e.preventDefault();
-            this
-                .props
-                .onSubmit(this.state.inputChara);
+            this.props.onSubmit(this.state.inputChara);
             this.setState({ inputChara: "", muraiClassName: "bounceOut" });
             setTimeout(function () {
                 var muraicnt1 = Math.floor(Math.random() * 2);
@@ -62,9 +51,7 @@ var ForInputAction = (function (_super) {
                 this.setState({ muraiClassName: murai_classname, muraiSrc: murai_src });
             }.bind(this), 1000);
         }
-        ;
     };
-    ;
     ForInputAction.prototype.handleMouseDown = function (e) { };
     ;
     ForInputAction.prototype.handleMouseUp = function (e) { };
@@ -79,51 +66,41 @@ var ForInputAction = (function (_super) {
     };
     return ForInputAction;
 }(React.Component));
-;
 var InputTextDisp = (function (_super) {
     __extends(InputTextDisp, _super);
     function InputTextDisp() {
         return _super.call(this) || this;
     }
-    ;
     InputTextDisp.prototype.render = function () {
-        var listItems = this
-            .props
-            .displist
-            .map(function (x) { return React.createElement("li", { key: x.id, className: "input_disp" },
-            React.createElement("span", null,
-                "Q.",
-                x.text)); });
+        var listItems = this.props.displist.map(function (x) {
+            return React.createElement("li", { key: x.id, className: "input_disp" },
+                React.createElement("span", null,
+                    "Q.",
+                    x.text));
+        });
         return (React.createElement("div", null,
             React.createElement("ul", null, listItems)));
     };
-    ;
     return InputTextDisp;
 }(React.Component));
-;
 ;
 var AnswerTextDisp = (function (_super) {
     __extends(AnswerTextDisp, _super);
     function AnswerTextDisp() {
         return _super.call(this) || this;
     }
-    ;
     AnswerTextDisp.prototype.render = function () {
-        var listItems = this
-            .props
-            .answerlist
-            .map(function (x) { return React.createElement("li", { key: x.id, className: "answer_disp" },
-            React.createElement("span", null,
-                "A.",
-                x.text)); });
+        var listItems = this.props.answerlist.map(function (x) {
+            return React.createElement("li", { key: x.id, className: "answer_disp" },
+                React.createElement("span", null,
+                    "A.",
+                    x.text));
+        });
         return (React.createElement("div", null,
             React.createElement("ul", null, listItems)));
     };
-    ;
     return AnswerTextDisp;
 }(React.Component));
-;
-;
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main(props) {
@@ -134,27 +111,17 @@ var Main = (function (_super) {
         };
         return _this;
     }
-    ;
     Main.prototype.handleInputTextSubmit = function (texts) {
-        this
-            .state
-            .displistpost
-            .add(texts);
-        this
-            .state
-            .answerlistpost
-            .add(texts);
+        this.state.displistpost.add(texts);
+        this.state.answerlistpost.add(texts);
         this.setState({ displistpost: this.state.displistpost, answerlistpost: this.state.answerlistpost });
     };
-    ;
     Main.prototype.render = function () {
         return (React.createElement("div", null,
             React.createElement(InputTextDisp, { displist: this.state.displistpost.list }),
             React.createElement(ForInputAction, { onSubmit: this.handleInputTextSubmit.bind(this) }),
             React.createElement(AnswerTextDisp, { answerlist: this.state.answerlistpost.list })));
     };
-    ;
     return Main;
 }(React.Component));
-;
 ReactDOM.render(React.createElement(Main, null), document.getElementById('root'));

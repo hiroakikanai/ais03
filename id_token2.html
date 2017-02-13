@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <title>ajax</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
@@ -24,7 +25,7 @@
                 .fail(function () {
                     console.log('localStorage_id_tokenエラー');
                     window.localStorage.clear();
-                    location.href = "https...";//エラーページ遷移 
+                    location.href = "https..."; //エラーページ遷移 
                 })
         } else {
             console.log('localStorage_id_tokenありません');
@@ -81,11 +82,10 @@
                     console.log('アクセス成功');
                 })
                 .fail(function () {
-                        console.log('エラー');
-                        window.localStorage.clear();
-                        location.href = "https...";//エラーページ遷移 
-                    }
-                );
+                    console.log('エラー');
+                    window.localStorage.clear();
+                    location.href = "https..."; //エラーページ遷移 
+                });
         };
     });
 </script>
